@@ -1,5 +1,8 @@
 package ThirdTask;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * @author Vitalii Kirenkin
  */
@@ -20,6 +23,7 @@ public class ThirdTask {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println("Need three arguments to run this app!");
         }
+
     }
 
     static void doMath() {
@@ -32,7 +36,7 @@ public class ThirdTask {
         while (yearsCounter <= years) {
             System.out.println("Year " + yearsCounter);
             double depositBefore = depositAmount;
-            double depositAfter = Calc.calcRevenue(depositBefore);
+            double depositAfter = calcRevenue(depositBefore);
             revenue = depositAfter - depositBefore;
             depositAmount = depositAfter;
             System.out.printf("Deposit amount =  %.2f UAH. \n", depositAmount);
@@ -41,4 +45,27 @@ public class ThirdTask {
             yearsCounter++;
         }
     }
+
+    static double roundValue(double value) {
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    static double calcRevenue(double depositBefore) {
+        double depositAfter = depositBefore + roundValue((depositAmount * (annualRate) * 31) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 28) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 31) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 30) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 31) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 30) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 31) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 31) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 30) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 31) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 30) / 365);
+        depositAfter += roundValue((depositAfter * (annualRate) * 31) / 365);
+        return depositAfter;
+    }
+
 }
