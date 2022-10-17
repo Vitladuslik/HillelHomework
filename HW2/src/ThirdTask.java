@@ -1,20 +1,22 @@
+
+/**
+ * @author Vitalii Kirenkin
+ */
+
 public class ThirdTask {
-
-    /**
-     * @author Vitalii Kirenkin
-     */
-
     static double depositAmount;
     static double annualRate;
     static int years;
     public static void main(String[] args) {
-        initVars();
+
+        depositAmount = Integer.parseInt(args[0]);
+        annualRate = Double.parseDouble(args[1]);
+        years = Integer.parseInt(args[2]);
         doMath();
         output();
-    }
-    static void initVars() {
 
     }
+
     static void doMath() {
 
     }
