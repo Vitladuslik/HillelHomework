@@ -1,5 +1,3 @@
-package ThirdTask;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
