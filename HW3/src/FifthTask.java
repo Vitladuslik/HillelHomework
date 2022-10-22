@@ -24,6 +24,7 @@ public class FifthTask {
             System.err.print("Wrong input!");
         }
     }
+
     private static int doMath(int x, int n) {
         if (x == 0 || n == 0) {
             System.err.print("Wrong input!");

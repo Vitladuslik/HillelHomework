@@ -10,9 +10,9 @@ public class EighthTask {
         x = 1;
         for (int counter = 0; counter < 10; counter++) {
             numbers[counter] = x;
-            x+=2;
+            x += 2;
         }
-        System.out.println(Arrays.toString(numbers).substring(1,34));
+        System.out.println(Arrays.toString(numbers).substring(1, 34));
     }
 
 }

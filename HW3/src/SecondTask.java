@@ -18,7 +18,7 @@ public class SecondTask {
         if (num == 0) {
             System.out.print("Factorial of your number is : 1");
         } else {
-            for (int x = num-1; x > 0; x--) {
+            for (int x = num - 1; x > 0; x--) {
                 num *= x;
             }
             System.out.print("Factorial of your number is : " + num);

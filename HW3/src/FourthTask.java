@@ -18,7 +18,7 @@ public class FourthTask {
         int x = 1;
         do {
             System.out.println(x);
-            x+=2;
+            x += 2;
         } while (x < 100);
 
     }
@@ -35,7 +35,7 @@ public class FourthTask {
         if (num == 0) {
             System.out.print("Factorial of your number is : 1");
         } else {
-            counter=num-1;
+            counter = num - 1;
             do {
                 num *= counter;
                 counter--;
