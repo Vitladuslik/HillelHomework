@@ -14,7 +14,7 @@ public class Main {
                         We currently have %.2f fuel left.
                         Our car use %.2f litres per 100 km.
                         Our fuel tank can be filled up to %.2f litres
-                        
+                                                
                         """,
                 markII.getFuelLeft(), markII.getFUEL_CONSUMED_PER_HUNDRED(), markII.getFUEL_TANK_CAPACITY());
 
@@ -26,8 +26,6 @@ public class Main {
                 markII.calculateNeededFuel(KYIV_TO_ZHASHKIV));
 
         moneySpent += markII.fillTheTank(markII.getFuelLeft(), fuelCost);
-
-        System.out.println("-------------------------------------------------------------------------------\n");
 
         System.out.printf("We spent %.2f UAH so far!\n", moneySpent); //прибуття
 
@@ -44,14 +42,11 @@ public class Main {
 
         moneySpent += markII.fillTheTank(markII.getFuelLeft(), fuelCost);
 
-
-        System.out.println("-------------------------------------------------------------------------------\n");
-
         System.out.printf("We spent %.2f UAH so far!\n", moneySpent);  //прибуття
 
         markII.setFuelLeft(markII.calculateFuelLeftAfterTrip(ZHASHKIV_TO_KRYVE_OZERO, markII.getFuelLeft()));
 
-        System.out.printf("We have %.2f litres of fuel left after reaching Zhashkiv. \n\n", markII.getFuelLeft());
+        System.out.printf("We have %.2f litres of fuel left after reaching Kryve Ozero. \n\n", markII.getFuelLeft());
 
         System.out.println("-------------------------------------------------------------------------------\n");
 
@@ -60,8 +55,6 @@ public class Main {
                 markII.calculateNeededFuel(KRYVE_OZERO_TO_ODESA));
 
         moneySpent += markII.fillTheTank(markII.getFuelLeft(), fuelCost);
-
-        System.out.println("-------------------------------------------------------------------------------\n");
 
         markII.setFuelLeft(markII.calculateFuelLeftAfterTrip(KRYVE_OZERO_TO_ODESA, markII.getFuelLeft()));
 
