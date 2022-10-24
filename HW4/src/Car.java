@@ -1,39 +1,32 @@
 public class Car {
 
-    private double fuelTankVolume;
+    private final double FUEL_TANK_CAPACITY;
     private double fuelLeft;
-    private double fuelConsumedPerHundredKm;
+    private final double FUEL_CONSUMED_PER_HUNDRED;
 
     public Car(double fuelTankVolume, double fuelLeft, double fuelConsumedPerHundred) {
-        this.fuelTankVolume = fuelTankVolume;
+        this.FUEL_TANK_CAPACITY = fuelTankVolume;
         this.fuelLeft = fuelLeft;
-        this.fuelConsumedPerHundredKm = fuelConsumedPerHundred;
+        this.FUEL_CONSUMED_PER_HUNDRED = fuelConsumedPerHundred;
     }
 
-    public Car() {
-    }
-
-    public double fillTheTank (double fuelLeft, double fuelCost) {
-        double fuelPoured = getFuelTankVolume()-fuelLeft;
+    public double fillTheTank(double fuelLeft, double fuelCost) {  // заповнює бак до повного і видає затрати на паливо
+        double fuelPoured = getFUEL_TANK_CAPACITY() - fuelLeft;
         double moneySpent = fuelCost * fuelPoured;
-        setFuelLeft(getFuelTankVolume());
+        setFuelLeft(getFUEL_TANK_CAPACITY());
         return moneySpent;
     }
 
-    public double calculateFuelLeftAfterTrip(double tripLength, double fuelLeft ) {
-        return fuelLeft-(tripLength* getFuelConsumedPerHundredKm());
+    public double calculateFuelLeftAfterTrip(double tripLength, double fuelLeft) {  //вираховує скільки палива
+        return fuelLeft - (tripLength/100 * getFUEL_CONSUMED_PER_HUNDRED());       // залишиться після поїздки
     }
 
-    public double calculateNeededFuel(double fuelLeft, double tripLength){
-        return (tripLength*getFuelConsumedPerHundredKm()) - fuelLeft;
+    public double calculateNeededFuel(double tripLength) { //вираховує необхідну кількість палива
+        return (tripLength/100 * getFUEL_CONSUMED_PER_HUNDRED());
     }
 
-    public double getFuelTankVolume() {
-        return fuelTankVolume;
-    }
-
-    public void setFuelTankVolume(double fuelTankVolume) {
-        this.fuelTankVolume = fuelTankVolume;
+    public double getFUEL_TANK_CAPACITY() {
+        return FUEL_TANK_CAPACITY;
     }
 
     public double getFuelLeft() {
@@ -44,11 +37,7 @@ public class Car {
         this.fuelLeft = fuelLeft;
     }
 
-    public double getFuelConsumedPerHundredKm() {
-        return fuelConsumedPerHundredKm;
-    }
-
-    public void setFuelConsumedPerHundredKm(double fuelConsumedPerHundredKm) {
-        this.fuelConsumedPerHundredKm = fuelConsumedPerHundredKm;
+    public double getFUEL_CONSUMED_PER_HUNDRED() {
+        return FUEL_CONSUMED_PER_HUNDRED;
     }
 }
