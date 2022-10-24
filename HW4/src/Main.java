@@ -8,18 +8,18 @@ public class Main {
     private static double moneySpent;
 
     public static void main(String[] args) {
-
-        fuelCost = Double.parseDouble(args[0]);  //ініціалізація
+        try {
+            fuelCost = Double.parseDouble(args[0]);  //ініціалізація
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("This app needs arguments to run properly");
+        }
 
         init();
 
-        System.out.println("Let's start our journey to Zhaskiv!"); //відправлення
         makeTrip(KYIV_TO_ZHASHKIV);
 
-        System.out.println("Let's move on to Kryve Ozero!");  //відправлення
         makeTrip(ZHASHKIV_TO_KRYVE_OZERO);
 
-        System.out.println("Let's finish this!"); // відправлення
         makeTrip(KRYVE_OZERO_TO_ODESA);
 
         finish();
@@ -43,6 +43,12 @@ public class Main {
     }
     private static void makeTrip (int distance) {
 
+        switch (distance) {
+            case 150 -> System.out.println("Let's start our journey to Zhashkiv!");
+            case 153 -> System.out.println("Let's start our journey to Kryve Pole!");
+            case 179 -> System.out.println("Let's start our journey to Odesa!");
+
+        }
         System.out.printf("We need %.2f litres of fuel for this trip!\n",
                 markII.calculateNeededFuel(distance));
 
