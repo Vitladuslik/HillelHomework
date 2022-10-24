@@ -10,6 +10,8 @@ public class Main {
         Car markII = new Car(70, 6.8, 8.3);
         double fuelCost = Double.parseDouble(args[0]); //ініціалізація
 
+        System.out.println("-------------------------------------------------------------------------------\n");
+
         System.out.printf("""
                         We currently have %.2f fuel left.
                         Our car use %.2f litres per 100 km.
@@ -22,7 +24,7 @@ public class Main {
 
         System.out.println("Let's start our journey to Zhaskiv!"); //відправлення
 
-        System.out.printf("We need %.2f litres of fuel for this trip!\n\n",
+        System.out.printf("We need %.2f litres of fuel for this trip!\n",
                 markII.calculateNeededFuel(KYIV_TO_ZHASHKIV));
 
         moneySpent += markII.fillTheTank(markII.getFuelLeft(), fuelCost);
@@ -37,7 +39,7 @@ public class Main {
 
         System.out.println("Let's move on to Kryve Ozero!");  //відправлення
 
-        System.out.printf("We need %.2f litres of fuel for this trip!\n\n",
+        System.out.printf("We need %.2f litres of fuel for this trip!\n",
                 markII.calculateNeededFuel(ZHASHKIV_TO_KRYVE_OZERO));
 
         moneySpent += markII.fillTheTank(markII.getFuelLeft(), fuelCost);
