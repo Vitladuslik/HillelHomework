@@ -110,7 +110,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return
                 "id=" + id +
                 ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
@@ -120,7 +120,6 @@ public class Student {
                 ", phone=" + phone +
                 ", faculty='" + faculty + '\'' +
                 ", course=" + course +
-                ", group=" + group +
-                '}';
+                ", group=" + group;
     }
 }
