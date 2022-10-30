@@ -111,15 +111,12 @@ public class Student {
     @Override
     public String toString() {
         return
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", fathersName='" + fathersName + '\'' +
-                ", birthYear=" + birthYear +
-                ", address='" + address + '\'' +
-                ", phone=" + phone +
-                ", faculty='" + faculty + '\'' +
-                ", course=" + course +
-                ", group=" + group;
+                "id=" + id + " "+ lastName + " " + firstName + " " + fathersName +
+                ", birthYear = " + birthYear +
+                ", address = '" + address + '\'' +
+                ", phone = " + phone +
+                ", faculty = '" + faculty + '\'' +
+                ", course = " + course +
+                ", group = " + group;
     }
 }
