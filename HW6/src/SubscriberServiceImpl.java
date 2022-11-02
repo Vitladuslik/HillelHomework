@@ -6,7 +6,8 @@ public class SubscriberServiceImpl implements SubscriberService {
         System.out.println("Subscribers, whose lastname starts with " + letter.toUpperCase() + " :");
         for (Subscriber s : array) {
             if (s.getLastName().indexOf(letter.toUpperCase()) == 0) {
-                System.out.println(s);
+                System.out.println(s.getLastName() + " " + s.getFirstName() + " " + s.getFathersName() + " , " +
+                        s.getPhone() + " , " + s.getBalance() + ".");
             }
         }
         System.out.println("-----------------------------------------------------------------------------------------");
