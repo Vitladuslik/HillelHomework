@@ -8,9 +8,9 @@ public class Subscriber {
     private String phone;
     private String contractId;
     private double balance;
-    private int localCalls;
-    private int intercityCall;
-    private int internetTraffic;
+    private int localCallsMin;
+    private int intercityCallMin;
+    private int internetTrafficGb;
 
     public int getId() {
         return id;
@@ -76,35 +76,35 @@ public class Subscriber {
         this.balance = balance;
     }
 
-    public int getLocalCalls() {
-        return localCalls;
+    public int getLocalCallsMin() {
+        return localCallsMin;
     }
 
-    public void setLocalCalls(int localCalls) {
-        this.localCalls = localCalls;
+    public void setLocalCallsMin(int localCallsMin) {
+        this.localCallsMin = localCallsMin;
     }
 
-    public int getIntercityCall() {
-        return intercityCall;
+    public int getIntercityCallMin() {
+        return intercityCallMin;
     }
 
-    public void setIntercityCall(int intercityCall) {
-        this.intercityCall = intercityCall;
+    public void setIntercityCallMin(int intercityCallMin) {
+        this.intercityCallMin = intercityCallMin;
     }
 
-    public int getInternetTraffic() {
-        return internetTraffic;
+    public int getInternetTrafficGb() {
+        return internetTrafficGb;
     }
 
-    public void setInternetTraffic(int internetTraffic) {
-        this.internetTraffic = internetTraffic;
+    public void setInternetTrafficGb(int internetTrafficGb) {
+        this.internetTrafficGb = internetTrafficGb;
     }
 
     public Subscriber() {
     }
 
     public Subscriber(int id, String lastName, String firstName, String fathersName, String city, String phone,
-                      String contractId, double balance, int localCalls, int intercityCall, int internetTraffic) {
+                      String contractId, double balance, int localCallsMin, int intercityCallMin, int internetTrafficGb) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -113,25 +113,25 @@ public class Subscriber {
         this.phone = phone;
         this.contractId = contractId;
         this.balance = balance;
-        this.localCalls = localCalls;
-        this.intercityCall = intercityCall;
-        this.internetTraffic = internetTraffic;
+        this.localCallsMin = localCallsMin;
+        this.intercityCallMin = intercityCallMin;
+        this.internetTrafficGb = internetTrafficGb;
     }
 
     @Override
     public String toString() {
         return
                 "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", fathersName='" + fathersName + '\'' +
-                ", city='" + city + '\'' +
-                ", phone='" + phone + '\'' +
-                ", contractId='" + contractId + '\'' +
-                ", balance=" + balance +
-                ", localCalls=" + localCalls +
-                ", intercityCall=" + intercityCall +
-                ", internetTraffic=" + internetTraffic +
+                ", lastName = '" + lastName + '\'' +
+                ", firstName = '" + firstName + '\'' +
+                ", fathersName = '" + fathersName + '\'' +
+                ", city = '" + city + '\'' +
+                ", phone = '" + phone + '\'' +
+                ", contractId = '" + contractId + '\'' +
+                ", balance = " + balance +
+                ", localCalls = " + localCallsMin +
+                ", intercityCall = " + intercityCallMin +
+                ", internetTraffic = " + internetTrafficGb +
                 '}';
     }
 }

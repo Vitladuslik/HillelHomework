@@ -1,12 +1,12 @@
 public interface SubscriberService {
-    void findSubscriber();
+    void findSubscriberByLocalCalls(Subscriber[] array, int localCallsMin);
 
-    void findSubscribersUsedIntercity();
+    void findSubscribersUsedIntercity(Subscriber[] array);
 
-    void findSubscribersByFirstLetter();
+    void findSubscribersByFirstLetter(Subscriber[] array, String letter);
 
-    void calculateCityTraffic();
+    void calculateCityTraffic(Subscriber[] array, String city);
 
-    void findSubscribersWithDebt();
+    void findSubscribersWithDebt(Subscriber[] array);
 
 }
