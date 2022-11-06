@@ -1,6 +1,6 @@
 package HW7;
 
-public interface ArrayListService {
+public interface ArrayService {
 
     boolean add(int index, String value);
     boolean add(String value);
