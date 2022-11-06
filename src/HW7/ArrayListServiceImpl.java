@@ -1,30 +1,44 @@
 package HW7;
 
-public class ArrayListServiceImpl implements ArrayListService{
+import static HW7.Main.arrList;
+
+public class ArrayListServiceImpl implements ArrayListService {
 
 
     @Override
     public boolean add(int index, String value) {
-        return false;
+
+        arrList.add(index, value);
+        return true;
+
     }
 
     @Override
     public boolean add(String value) {
-        return false;
+
+        arrList.add(value);
+        return true;
+
     }
 
     @Override
     public boolean delete(int index) {
-        return false;
+
+        arrList.remove(index);
+        return true;
+
     }
 
     @Override
     public boolean delete(String value) {
-        return false;
+
+        arrList.remove(value);
+        return true;
+
     }
 
     @Override
     public String get(int index) {
-        return null;
+        return arrList.get(index);
     }
 }
