@@ -95,7 +95,6 @@ public class ArrayServiceImpl implements ArrayService {
     @Override
     public boolean delete(String value) {
 
-        try {
             String[] temp = new String[array.length - 1];
             int newArrayCounter = 0;
             for (String s : array) {
@@ -108,9 +107,6 @@ public class ArrayServiceImpl implements ArrayService {
             }
             array = temp;
             return true;
-        } catch (Exception e) {
-            return false;
-        }
 
     }
 
@@ -118,7 +114,6 @@ public class ArrayServiceImpl implements ArrayService {
     // та переносить туди усі інші змінні у тому ж порядку
     public boolean deleteAll(String value) {
 
-        try {
             int matchCount = 0;
             for (String s : array) {
                 if (s.equals(value)) {
@@ -137,9 +132,6 @@ public class ArrayServiceImpl implements ArrayService {
             }
             array = temp;
             return true;
-        } catch (Exception e) {
-            return false;
-        }
 
     }
 
