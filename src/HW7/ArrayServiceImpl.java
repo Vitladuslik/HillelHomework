@@ -1,8 +1,6 @@
 package HW7;
 
 
-import jdk.internal.util.ArraysSupport;
-
 import java.util.Arrays;
 import java.util.Objects;
 

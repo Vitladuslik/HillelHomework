@@ -18,22 +18,22 @@ public class Main {
 
         //тест методу 'add(value)'
         service.add("9");
-        System.out.println("Array after 'add': " + service);
+        System.out.println("Array after 'add(\"9\")': " + service);
         System.out.println("--------------------------------------");
 
         //тест методу 'add(index, value)'
         service.add(6, "7");
-        System.out.println("Array after 'add': " + service);
+        System.out.println("Array after 'add(6, \"7\")': " + service);
         System.out.println("--------------------------------------");
 
         //тест методу 'delete(index)'
         service.delete(4);
-        System.out.println("Array after 'delete': " + service);
+        System.out.println("Array after 'delete(4)': " + service);
         System.out.println("--------------------------------------");
 
         //тест методу 'delete(value)'
         service.delete("3");
-        System.out.println("Array after 'delete': " + service);
+        System.out.println("Array after 'delete(\"3\")': " + service);
         System.out.println("--------------------------------------");
 
         //повертаємо значення елементу колекції по індексу
