@@ -1,41 +1,67 @@
 package HW7;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import jdk.internal.util.ArraysSupport;
 
-import static HW7.Main.arr;
-
+import java.util.Arrays;
+import java.util.Objects;
 
 public class ArrayServiceImpl implements ArrayService {
 
+    private String[] array;
+    private String blankFiller = "Totally not null";
+    private int basicLength = 10;
+
     private int size;
-    private int modCount;
 
-    private static final int DEFAULT_CAPACITY = 10;
 
-    //private static final Object[] EMPTY_ELEMENTDATA = {};
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
-    transient Object[] elementData;
 
-    private void rangeCheckForAdd(int index) {
-        if (index > size || index < 0)
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+    @Override
+    public String toString() {
+        return Arrays.toString(array);
     }
+
+    public ArrayServiceImpl() {
+
+        this.array = new String[basicLength];
+        for (int count = 0; count < basicLength; count++) {
+            array[count] = blankFiller;
+        }
+        size = basicLength;
+
+    }
+
+    public ArrayServiceImpl(String[] arr) {
+
+        this.array = arr;
+        size = arr.length;
+
+    }
+
+    private void add(String s, String[] array, int index) {
+        if (index == array.length)
+            array = grow();
+        array[index] = s;
+        size = index + 1;
+    }
+
+    private String[] grow() {
+
+        int newCapacity = (int) (array.length*1.2);
+            return array = Arrays.copyOf(array, newCapacity);
+        }
 
     @Override
     public boolean add(int index, String value) {
-        rangeCheckForAdd(index);
-        this.elementData = arr;
-        modCount++;
+
         final int s;
-        Object[] elementData;
-        if ((s = size) == (elementData = this.elementData).length)
-            elementData = grow();
-        System.arraycopy(elementData, index,
-                elementData, index + 1,
+        String[] array;
+        if ((s = size) == (array = this.array).length)
+            array = grow();
+        System.arraycopy(array, index,
+                array, index + 1,
                 s - index);
-        elementData[index] = value;
+        array[index] = value;
         size = s + 1;
         return true;
 
@@ -44,59 +70,90 @@ public class ArrayServiceImpl implements ArrayService {
     @Override
     public boolean add(String value) {
 
-        modCount++;
-        add(value, elementData, size);
+        add(value, array, size);
         return true;
-
 
     }
 
     @Override
     public boolean delete(int index) {
 
-
-        return true;
+        String[] temp = new String[array.length - 1];
+        int newArrayCounter = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (i == index) continue;
+            else {
+                temp[newArrayCounter] = array[i];
+                newArrayCounter++;
+            }
+        }
+        array = temp;
+        return false;
 
     }
 
+
+    // метод видаляє перше знайдене співпадіння
     @Override
     public boolean delete(String value) {
 
-
-        return true;
+        try {
+            String[] temp = new String[array.length - 1];
+            int newArrayCounter = 0;
+            for (String s : array) {
+                if (Objects.equals(s, value)) {
+                    continue;
+                } else {
+                    temp[newArrayCounter] = s;
+                    newArrayCounter++;
+                }
+            }
+            array = temp;
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
 
     }
+
+    // метод вираховує кількість елементів, які відповідають вказаному,створює новий масив меньший на цю кількість
+    // та переносить туди усі інші змінні у тому ж порядку
+    public boolean deleteAll(String value) {
+
+        try {
+            int matchCount = 0;
+            for (String s : array) {
+                if (s.equals(value)) {
+                    matchCount++;
+                }
+            }
+            String[] temp = new String[array.length - matchCount];
+            int newArrayCounter = 0;
+            for (String s : array) {
+                if (Objects.equals(s, value)) {
+                    continue;
+                } else {
+                    temp[newArrayCounter] = s;
+                    newArrayCounter++;
+                }
+            }
+            array = temp;
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
 
     @Override
     public String get(int index) {
-        return arr[index];
-    }
-
-    private String outOfBoundsMsg(int index) {
-        return "Index: "+index+", Size: "+size;
-    }
-
-    private Object[] grow(int minCapacity) {
-        int oldCapacity = elementData.length;
-        if (oldCapacity > 0 || elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
-            int newCapacity = ArraysSupport.newLength(oldCapacity,
-                    minCapacity - oldCapacity, /* minimum growth */
-                    oldCapacity >> 1           /* preferred growth */);
-            return elementData = Arrays.copyOf(elementData, newCapacity);
-        } else {
-            return elementData = new Object[Math.max(DEFAULT_CAPACITY, minCapacity)];
+        if (index < 0 || index >= array.length) {
+            return null;
         }
+        return array[index];
     }
 
-    private Object[] grow() {
-        return grow(size + 1);
-    }
-
-    private void add(String value, Object[] elementData, int index) {
-        if (index == elementData.length)
-            elementData = grow();
-        elementData[index] = value;
-        size = index + 1;
-    }
 
 }
+
