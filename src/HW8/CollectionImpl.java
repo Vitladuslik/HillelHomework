@@ -8,6 +8,14 @@ public class CollectionImpl implements Collection{
 
     private int size;
 
+    public String[] getArray() {
+        return array;
+    }
+
+    public void setArray(String[] array) {
+        this.array = array;
+    }
+
     public CollectionImpl() {
     }
 
@@ -78,10 +86,9 @@ public class CollectionImpl implements Collection{
 
     @Override
     public boolean equals(Collection str) {
-        if (str.equals(this.array)) {
+        if (str == this) {
             return true;
         }
-
         else if (!(str instanceof List)) {
             return false;
         }

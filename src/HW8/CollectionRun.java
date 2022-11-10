@@ -1,8 +1,6 @@
 package HW8;
 
 
-import java.util.Collection;
-
 public class CollectionRun {
 
     public static void main(String[] args) {
@@ -12,9 +10,6 @@ public class CollectionRun {
 
         //об'єкт класу сервісу
         CollectionImpl service = new CollectionImpl(arr);
-
-        String[] testArr1 = new String[]{"1", "2", "4", "5", "6", "7", "9"};
-        String[] testArr2 = new String[]{"a", "b", "c", "d", "e", "f"};
 
         // виведемо стартовий масив
         System.out.println("Array we have: " + service);
@@ -47,9 +42,11 @@ public class CollectionRun {
         System.out.println("Check if array contains '2' : " + service.contain("2"));
         System.out.println("--------------------------------------");
 
-//        //перевірка чи дорівнюе масив заданому масиву
-//        System.out.println("Check if array equals 'testArr1' : " + service.equals(testArr1));
-//        System.out.println("Check if array equals 'testArr1' : " + service.equals(testArr2));
+        //перевірка чи дорівнюе масив заданому масиву
+        String[] testArr1 = new String[]{"a", "b", "c", "d", "e", "f"};
+        CollectionImpl service1 = new CollectionImpl(testArr1);
+        System.out.println("Check if array equals array in 'service1' : " + service.equals(service1));
+        System.out.println("--------------------------------------");
 
         //тест методу 'clear()'
         service.clear();
