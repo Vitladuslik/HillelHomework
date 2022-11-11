@@ -12,7 +12,7 @@ public interface Collection {
 
     boolean contain(String o);
 
-    boolean equals (Collection str);
+    boolean equals(Collection str);
 
     boolean clear();
 

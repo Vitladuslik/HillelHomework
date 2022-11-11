@@ -1,7 +1,6 @@
 package HW8;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 public class CollectionImpl implements Collection{
@@ -86,13 +85,10 @@ public class CollectionImpl implements Collection{
 
     @Override
     public boolean equals(Collection str) {
-        if (str == this) {
-            return true;
-        }
-        else if (!(str instanceof List)) {
-            return false;
-        }
-        return false;
+        if (this == str) return true;
+        if (str == null || getClass() != str.getClass()) return false;
+        CollectionImpl that = (CollectionImpl) str;
+        return size == that.size && Arrays.equals(array, that.array);
     }
 
     @Override
@@ -122,19 +118,19 @@ public class CollectionImpl implements Collection{
     }
 
     public int indexOf(Object o) {
-        return indexOfRange(o, 0, size);
+        return indexOfRange(o, size);
     }
 
-    int indexOfRange(Object o, int start, int end) {
+    int indexOfRange(Object o, int end) {
         Object[] es = array;
         if (o == null) {
-            for (int i = start; i < end; i++) {
+            for (int i = 0; i < end; i++) {
                 if (es[i] == null) {
                     return i;
                 }
             }
         } else {
-            for (int i = start; i < end; i++) {
+            for (int i = 0; i < end; i++) {
                 if (o.equals(es[i])) {
                     return i;
                 }
@@ -147,4 +143,10 @@ public class CollectionImpl implements Collection{
         return Arrays.toString(array);
     }
 
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size);
+        result = 31 * result + Arrays.hashCode(array);
+        return result;
+    }
 }
