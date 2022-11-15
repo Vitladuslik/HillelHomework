@@ -6,7 +6,7 @@ public interface CustomCollection<String> {
 
     boolean add(String str);
 
-    boolean addAll(Collection strColl);
+    boolean addAll(Collection <String> strColl);
 
     boolean delete (int index);
 
