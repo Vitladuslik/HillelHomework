@@ -3,6 +3,7 @@ package HW9;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class Run {
 
@@ -19,7 +20,6 @@ public class Run {
         test.add("c");
         System.out.println("Collection size after 'add(\"a\")': " + test.size());
         System.out.println("--------------------------------------");
-
 
         //тест методу 'addAll(Collection <String> strColl)'
         Collection <String> testColl = new ArrayList<>();

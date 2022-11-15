@@ -86,7 +86,7 @@ public class CustomCollectionImpl implements CustomCollection <String> {
 
     @Override
     public boolean trim() {
-        return false;
+        return true;
     }
 
     public int indexOf(Object o) {
@@ -228,6 +228,14 @@ public class CustomCollectionImpl implements CustomCollection <String> {
                 x = x.prev;
         }
         return x;
+    }
+
+    public Object[] toArray() {
+        Object[] result = new Object[size];
+        int i = 0;
+        for (Node<Object> x = first; x != null; x = x.next)
+            result[i++] = x.item;
+        return result;
     }
 
 }
