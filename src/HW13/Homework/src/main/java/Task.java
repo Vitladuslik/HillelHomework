@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -13,6 +14,7 @@ public class Task {
 
         solution.average(testIntegers);
         solution.filter(testString);
+        System.out.println(solution.upperCase(testString));
 
 
     }
@@ -24,13 +26,12 @@ public class Task {
                 .ifPresent(avg -> System.out.println("Average is " + avg));
     }
 
-    private void uppercase(List <String> list) {
+    private List<Pair> upperCase(List<String> list) {
 
-        List<String> uppercase = list.stream()
-                .map(String::toUpperCase)
-                .toList();
+        List<Pair> result = new ArrayList<>();
+        list.forEach(s -> result.add(new Pair(s, s.toUpperCase())));
 
-
+        return result;
     }
 
     private void filter(List<String> list) {
