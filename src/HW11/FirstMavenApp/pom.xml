@@ -16,7 +16,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>Test</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
