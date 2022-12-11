@@ -38,7 +38,7 @@
     </dependencies>
 
     <build>
-        <finalName>Painter</finalName>
+        <finalName>Rock-Paper-Scissors</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -69,7 +69,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Painter</mainClass>
+                            <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
