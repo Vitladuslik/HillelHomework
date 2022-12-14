@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -111,8 +110,7 @@ public class GameImpl implements Game {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        Path currentRelativePath = Paths.get("");
-        String path = currentRelativePath.toAbsolutePath().toString();
+        String path = Paths.get("").toAbsolutePath().toString();
 
         try (FileWriter saver = new FileWriter(path + "\\results.txt", true)) {
             saver.write(dtf.format(now) + " -> " + results + "\n");
