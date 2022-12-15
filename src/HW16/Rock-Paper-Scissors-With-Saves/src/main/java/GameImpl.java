@@ -66,15 +66,15 @@ public class GameImpl implements Game {
         if (player.getPlayerHand() == Hand.ROCK && computer.getComputerHand() == Hand.SCISSORS ||
                 player.getPlayerHand() == Hand.SCISSORS && computer.getComputerHand() == Hand.PAPER ||
                 player.getPlayerHand() == Hand.PAPER && computer.getComputerHand() == Hand.ROCK) {
-            System.out.println(player.getName() + " wins!");
+            System.err.println(player.getName() + " wins!");
             System.out.println("-------------------------------------------------------");
             player.setPlayerWins(player.getPlayerWins() + 1);
             player.setTotalGamesPlayed(player.getTotalGamesPlayed() + 1);
         } else if (player.getPlayerHand() == computer.getComputerHand()) {
-            System.out.println("Draw!");
+            System.err.println("Draw! Try again!");
             startRound(player, computer);
         } else {
-            System.out.println("Computer wins!");
+            System.err.println("Computer wins!");
             System.out.println("-------------------------------------------------------");
             computer.setComputerWins(computer.getComputerWins() + 1);
             player.setTotalGamesPlayed(player.getTotalGamesPlayed() + 1);
@@ -113,6 +113,7 @@ public class GameImpl implements Game {
         String path = Paths.get("").toAbsolutePath().toString();
 
         try (FileWriter saver = new FileWriter(path + "\\results.txt", true)) {
+            System.out.println("Saving results to : " + path );
             saver.write(dtf.format(now) + " -> " + results + "\n");
         } catch (IOException e) {
             throw new RuntimeException(e);
