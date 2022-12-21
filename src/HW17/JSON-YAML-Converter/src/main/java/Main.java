@@ -1,6 +1,9 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileWriter;
@@ -16,36 +19,36 @@ public class Main {
     public static void main(String[] args) {
 
 
-        save();
+        String st = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.yaml";
+
+        yamlParse(st);
 
     }
 
 
-    public static void json_parse() {
+    public static void jsonSoloParse(String path) throws JsonSyntaxException {
 
-        String jsonRaw = "{\"exchangeRate\":\"1650.0\"," +
-                "\"externalPaymentDetails\":\"{" +
-                "subscriberId=12054, " +
-                "smartCardId=02124108694, " +
-                "providerName=StarTimes," +
-                " tvPackage=StarTimes, " +
-                "expirationDate=2019-07-13}\"}";
+        try {
 
-        JsonObject jsonObject = JsonParser.parseString(jsonRaw).getAsJsonObject();
+            String json = ReadFromFile.readToString(path);
 
-        Optional<JsonElement> jsonElement = Optional.ofNullable(jsonObject.get("exchangeRate"));
+            JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+            Optional<JsonElement> jsonElement = Optional.ofNullable(jsonObject);
 
-        if (jsonElement.isPresent()) {
-            System.out.println(jsonElement.get().getAsString());
-        } else {
-            System.out.println();
+            if (jsonElement.isPresent()) {
+                System.out.println(jsonElement.get());
+            } else {
+                System.out.println("Fail");
+            }
+        } catch (JsonSyntaxException e) {
+            System.out.println("Not a valid Json!");
         }
-
     }
 
-    public static void yaml_parse() {
+    public static void yamlParse(String path) {
         Yaml yaml = new Yaml();
-        String yamlStr = ReadFromFile.readToString(" !!!!!!!!!!");
+        String yamlStr = ReadFromFile.readToString(path);
+        System.out.println(yamlStr);
         Map<String, Object> obj = yaml.load(yamlStr);
 //        System.out.println(obj);
         System.out.println(yaml.dump(obj));
@@ -64,6 +67,34 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static boolean isValidJson(String json) {
+        try {
+            JsonParser.parseString(json);
+        } catch (JsonSyntaxException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isValidYaml(String yamlStr) {
+        try {
+            Yaml yaml = new Yaml();
+            yaml.load(yamlStr);
+            Map<String, Object> obj = yaml.load(yamlStr);
+            return true;
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    String convertYamlToJson(String yaml) throws JsonProcessingException {
+        ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
+        Object obj = yamlReader.readValue(yaml, Object.class);
+
+        ObjectMapper jsonWriter = new ObjectMapper();
+        return jsonWriter.writeValueAsString(obj);
     }
 
 }
