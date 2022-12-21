@@ -1,5 +1,8 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -11,17 +14,31 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
-public class Main {
+public class Test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JsonProcessingException {
 
+        long millisBefore = System.currentTimeMillis() % 1000;
 
-        String st = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.yaml";
+        String yamlPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.yaml";
 
-        yamlParse(st);
+        String yamlStr = ReadFromFile.readToString(yamlPath);
+
+        System.out.println(yamlStr);
+
+        String jsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.json";
+
+        String jsonStr = ReadFromFile.readToString(jsonPath);
+
+        System.out.println(jsonStr);
+
+        long millisAfter = System.currentTimeMillis() % 1000;
+
+        System.out.println("Time in milliseconds used: " + (millisAfter-millisBefore));
 
     }
 
@@ -89,7 +106,7 @@ public class Main {
         }
     }
 
-    String convertYamlToJson(String yaml) throws JsonProcessingException {
+    public static String convertYamlToJson(String yaml) throws JsonProcessingException {
         ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
         Object obj = yamlReader.readValue(yaml, Object.class);
 
@@ -97,4 +114,11 @@ public class Main {
         return jsonWriter.writeValueAsString(obj);
     }
 
+    public String convertJsonToYaml(String jsonString) throws JsonProcessingException, IOException {
+        // parse JSON
+        JsonNode jsonNodeTree = new ObjectMapper().readTree(jsonString);
+        // save it as YAML
+        return new YAMLMapper().writeValueAsString(jsonNodeTree);
+
+    }
 }
