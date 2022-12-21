@@ -11,10 +11,7 @@ public class Main {
 
     private static String workDir = Paths.get("").toAbsolutePath().toString();
     private static String tempPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources";
-
-    private static String fileName;
-
-    private static String tempFileName = "MOCK_DATA.json";
+    private static int choice;
 
     public static void main(String[] args) throws IOException {
 
@@ -22,59 +19,48 @@ public class Main {
 
         File startPath = new File(tempPath);
 
-        boolean working = true;
-        while (working) {
-            System.out.println("Current working directory is : " + tempPath);
-            System.out.println("Choose file to convert or press '0' to exit : ");
-            service.viewContents(startPath);
-            Scanner scan = new Scanner(System.in);
-//            try {
-//                fileName = scan.nextLine();
-//                if (fileName.equals("0")) {
-//                    System.out.println("Shutting down...");
-//                    working = false;
-//                }
-//            } catch (InputMismatchException e) {
-//                System.err.println("Wrong input!");
-//                working = false;
-//            }
-            File[] listFiles = startPath.listFiles();
-            assert listFiles != null;
+        Scanner scan = new Scanner(System.in);
 
-            int counter = 1;
-            Map<Integer, String> files = new HashMap<>();
-            for (File f : listFiles) {
+        System.out.println("Current working directory is : " + tempPath);
+        System.out.println("Choose file to convert or enter any letter to exit : ");
+        service.viewContents(startPath);
+
+        File[] listFiles = startPath.listFiles();
+        assert listFiles != null;
+
+        int counter = 1;
+        Map<Integer, String> files = new HashMap<>();
+
+        for (File f : listFiles) {
+            if (!f.isDirectory()) {
                 files.put(counter, f.getName());
                 counter++;
             }
+        }
 
-            int choice = scan.nextInt();
+        try {
+            choice = scan.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Shutting down...");
+        }
 
-            for (File f : listFiles) {
-                if (f.getName().equals(files.get(choice))) {
-                    service.setOldFileName(f.getName());
-                    service.setOldFileSize(Files.size(Paths.get(f.getAbsolutePath())));
-                }
+        for (File f : listFiles) {
+            if (f.getName().equals(files.get(choice))) {
+                service.setOldFileName(f.getName());
+                service.setOldFileSize(Files.size(Paths.get(f.getAbsolutePath())));
             }
+        }
 
-            switch (service.checkFormat(tempPath + "\\" + files.get(choice))) {
-                case "JSON" -> {
-                    service.convertToYaml(tempPath + "\\" + files.get(choice));
-                    working = false;
-                }
-                case "YAML" -> {
-                    service.convertToJson(tempPath + "\\" + fileName);
-                    working = false;
-                }
-                default -> {
-                    System.out.println("Cannot convert selected file!");
-                    working = false;
-                }
-            }
+        switch (service.checkFormat(tempPath + "\\" + files.get(choice))) {
+            case "JSON" -> service.convertToYaml(tempPath + "\\" + files.get(choice));
 
-            service.write(tempPath);
+            case "YAML" -> service.convertToJson(tempPath + "\\" + files.get(choice));
+
+            default -> System.out.println("Cannot convert selected file!");
 
         }
+
+        service.write(tempPath);
 
     }
 

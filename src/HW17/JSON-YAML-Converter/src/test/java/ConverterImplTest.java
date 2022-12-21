@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 public class ConverterImplTest {
 
     @Test
@@ -17,7 +19,7 @@ public class ConverterImplTest {
     }
 
     @Test
-    void checkFormat() {
+    void checkFormat() throws IOException {
 
         String testYamlPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.yaml";
 

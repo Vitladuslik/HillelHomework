@@ -36,7 +36,7 @@ public class ConverterImpl implements Converter {
     }
 
     @Override
-    public String checkFormat(String filePath) {
+    public String checkFormat(String filePath) throws IOException {
 
         String testStr = ReadFromFile.readToString(filePath);
 
@@ -47,6 +47,9 @@ public class ConverterImpl implements Converter {
             System.out.println("Selected file is YAML");
             return "YAML";
         } else {
+            System.out.println("Cannot convert selected file!");
+            write(Paths.get("").toAbsolutePath().toString());
+            System.exit(0);
             return null;
         }
 
@@ -55,7 +58,7 @@ public class ConverterImpl implements Converter {
     @Override
     public void convertToJson(String yamlFilePath) throws JsonProcessingException {
 
-        long millisBefore = System.currentTimeMillis() % 1000;
+        long millisBefore = System.currentTimeMillis();
 
         String yamlStr = ReadFromFile.readToString(yamlFilePath);
 
@@ -66,20 +69,19 @@ public class ConverterImpl implements Converter {
 
         result = jsonWriter.writeValueAsString(obj);
 
-        long millisAfter = System.currentTimeMillis() % 1000;
+        long millisAfter = System.currentTimeMillis();
         timeUsed = millisAfter - millisBefore;
         isOperationSuccessful = true;
         System.out.println("Time in milliseconds used: " + timeUsed);
 
-        newFileName = "converted_" + oldFileName + ".json";
-//        newFileSize = Files.size(Paths.get(filePath.getAbsolutePath())) / 1024;
+        newFileName = "converted_" + oldFileName.split("\\.")[0] + ".json";
 
     }
 
     @Override
     public void convertToYaml(String jsonFilePath) throws JsonProcessingException {
 
-        long millisBefore = System.currentTimeMillis() % 1000;
+        long millisBefore = System.currentTimeMillis();
 
         String jsonStr = ReadFromFile.readToString(jsonFilePath);
 
@@ -87,11 +89,11 @@ public class ConverterImpl implements Converter {
 
         result = new YAMLMapper().writeValueAsString(jsonNodeTree);
 
-        long millisAfter = System.currentTimeMillis() % 1000;
+        long millisAfter = System.currentTimeMillis();
         timeUsed = millisAfter - millisBefore;
         isOperationSuccessful = true;
         System.out.println("Time in milliseconds used: " + timeUsed);
-        newFileName = "converted_" + oldFileName + ".yaml";
+        newFileName = "converted_" + oldFileName.split("\\.")[0] + ".yaml";
         //        newFileSize = Files.size(Paths.get(filePath.getAbsolutePath())) / 1024;
 
     }
@@ -103,6 +105,17 @@ public class ConverterImpl implements Converter {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
+
+        if (isOperationSuccessful) {
+            File file = new File(path + "\\converted\\" + newFileName);
+            file.getParentFile().mkdirs();
+
+            try (FileWriter saver = new FileWriter(file)) {
+                System.out.println("Saving converted file to : " + file);
+                saver.write(result);
+                newFileSize = Files.size(Paths.get(file.getAbsolutePath()));
+            }
+        }
 
         try (FileWriter saver = new FileWriter(path + "\\result.log", true)) {
             System.out.println("Saving results to : " + path);
@@ -117,10 +130,6 @@ public class ConverterImpl implements Converter {
             throw new RuntimeException(e);
         }
 
-        try (FileWriter saver = new FileWriter(path + "\\converted\\" + newFileName, true)) {
-            System.out.println("Saving converted file to : " + path + "\\converted\\");
-            saver.write(result);
-        }
     }
 
     public boolean isValidJson(String jsonStr) {
@@ -136,7 +145,7 @@ public class ConverterImpl implements Converter {
     public boolean isValidYaml(String yamlStr) {
 
 
-        return false;
+        return true;
 
 
     }
@@ -149,8 +158,8 @@ public class ConverterImpl implements Converter {
         for (File f : listFiles) {
             if (!f.isHidden()) {
                 if (!f.isDirectory()) {
-                    long size = Files.size(Paths.get(f.getAbsolutePath())) / 1024;
-                    System.out.println(counter + ") -> " + f.getName() + " " + size + " kb");
+                    long size = Files.size(Paths.get(f.getAbsolutePath()));
+                    System.out.println(counter + ") -> " + f.getName() + " " + size + " bytes");
                     counter++;
                 }
             }
