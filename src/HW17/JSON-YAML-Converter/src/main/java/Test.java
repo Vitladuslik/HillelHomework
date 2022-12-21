@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,23 +21,21 @@ public class Test {
 
     public static void main(String[] args) throws JsonProcessingException {
 
-        long millisBefore = System.currentTimeMillis() % 1000;
+        String jsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\MOCK_DATA.json";
 
-        String yamlPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.yaml";
+        String yamlPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\MOCK.yaml";
 
         String yamlStr = ReadFromFile.readToString(yamlPath);
 
-        System.out.println(yamlStr);
-
-        String jsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.json";
-
         String jsonStr = ReadFromFile.readToString(jsonPath);
 
-        System.out.println(jsonStr);
+        System.out.println(yamlStr);
 
-        long millisAfter = System.currentTimeMillis() % 1000;
+        System.out.println(isValidYaml(jsonStr));
 
-        System.out.println("Time in milliseconds used: " + (millisAfter-millisBefore));
+
+
+
 
     }
 
@@ -86,22 +83,26 @@ public class Test {
         }
     }
 
-    public static boolean isValidJson(String json) {
+    public static boolean isValidJson(String jsonStr) {
         try {
-            JsonParser.parseString(json);
-        } catch (JsonSyntaxException e) {
+            final ObjectMapper mapper = new ObjectMapper();
+            mapper.readTree(jsonStr);
+            return true;
+        } catch (IOException e) {
             return false;
         }
-        return true;
     }
+
 
     public static boolean isValidYaml(String yamlStr) {
         try {
             Yaml yaml = new Yaml();
             yaml.load(yamlStr);
             Map<String, Object> obj = yaml.load(yamlStr);
+            System.out.println("ok");
             return true;
         } catch (ClassCastException e) {
+            System.out.println("not ok");
             return false;
         }
     }
