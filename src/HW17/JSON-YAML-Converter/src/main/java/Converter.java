@@ -1,5 +1,3 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,9 +14,11 @@ public interface Converter {
 
     void convertToYaml(File jsonFile) throws IOException;
 
-    void write(Path path) throws IOException;
+    void write(Path path, String result) throws IOException;
 
-     String readToString(String filePath);
+    String readToString(String filePath);
+
+    String getResult();
 
 
 }

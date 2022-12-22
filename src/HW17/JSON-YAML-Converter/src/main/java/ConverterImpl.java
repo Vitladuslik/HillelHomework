@@ -34,6 +34,10 @@ public class ConverterImpl implements Converter {
         this.oldFileSize = fileSize;
     }
 
+    public String getResult() {
+        return result;
+    }
+
     @Override
     public String checkFormat(String filePath) throws IOException {
 
@@ -47,7 +51,7 @@ public class ConverterImpl implements Converter {
             return "YAML";
         } else {
             System.out.println("No files to convert!");
-            write(Paths.get("").toAbsolutePath());
+            write(Paths.get("").toAbsolutePath(), null);
             System.exit(0);
             return null;
         }
@@ -103,7 +107,7 @@ public class ConverterImpl implements Converter {
     }
 
     @Override
-    public void write(Path path) throws IOException {
+    public void write(Path path, String result) throws IOException {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();

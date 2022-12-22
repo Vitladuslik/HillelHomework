@@ -32,15 +32,18 @@ public class ConvertRun {
 
         for (File file : filesToConvert) {
             switch (service.checkFormat(file.getPath())) {
-                case "JSON" -> service.convertToYaml(file);
+                case "JSON" -> {
+                    service.convertToYaml(file);
+                    service.write(path, service.getResult());
+                }
 
-                case "YAML" -> service.convertToJson(file);
-
-                default -> System.out.println("Cannot convert selected file!");
-
+                case "YAML" -> {
+                    service.convertToJson(file);
+                    service.write(path, service.getResult());
+                }
             }
         }
 
-        service.write(path);
+
     }
 }
