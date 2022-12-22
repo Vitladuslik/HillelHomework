@@ -9,10 +9,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
 
 
 public class ConverterImpl implements Converter {
@@ -24,10 +24,6 @@ public class ConverterImpl implements Converter {
     boolean isOperationSuccessful = false;
     String result;
     long timeUsed;
-
-    public void chooseFile() {
-
-    }
 
     public void setOldFileName(String fileName) {
         this.oldFileName = fileName;
@@ -43,14 +39,14 @@ public class ConverterImpl implements Converter {
         String testStr = ReadFromFile.readToString(filePath);
 
         if (isValidJson(testStr)) {
-            System.out.println("Selected file is JSON");
+            System.out.println("JSON detected");
             return "JSON";
         } else if (isValidYaml(testStr)) {
-            System.out.println("Selected file is YAML");
+            System.out.println("YAML detected");
             return "YAML";
         } else {
-            System.out.println("Cannot convert selected file!");
-            write(Paths.get("").toAbsolutePath().toString());
+            System.out.println("No files to convert!");
+            write(Paths.get("").toAbsolutePath());
             System.exit(0);
             return null;
         }
@@ -58,11 +54,14 @@ public class ConverterImpl implements Converter {
     }
 
     @Override
-    public void convertToJson(String yamlFilePath) throws JsonProcessingException {
+    public void convertToJson(File yamlFile) throws IOException {
+
+        oldFileName = yamlFile.getName();
+        oldFileSize = Files.size(Paths.get(yamlFile.getPath()));
 
         long millisBefore = System.currentTimeMillis();
 
-        String yamlStr = ReadFromFile.readToString(yamlFilePath);
+        String yamlStr = ReadFromFile.readToString(yamlFile.getPath());
 
         ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
         Object obj = yamlReader.readValue(yamlStr, Object.class);
@@ -74,18 +73,20 @@ public class ConverterImpl implements Converter {
         long millisAfter = System.currentTimeMillis();
         timeUsed = millisAfter - millisBefore;
         isOperationSuccessful = true;
-        System.out.println("Time in milliseconds used: " + timeUsed);
 
         newFileName = "converted_" + oldFileName.split("\\.")[0] + ".json";
 
     }
 
     @Override
-    public void convertToYaml(String jsonFilePath) throws JsonProcessingException {
+    public void convertToYaml(File jsonFile) throws IOException {
 
         long millisBefore = System.currentTimeMillis();
 
-        String jsonStr = ReadFromFile.readToString(jsonFilePath);
+        setOldFileName(jsonFile.getName());
+        setOldFileSize(Files.size(Path.of(jsonFile.getPath())));
+
+        String jsonStr = ReadFromFile.readToString(jsonFile.getPath());
 
         JsonNode jsonNodeTree = new ObjectMapper().readTree(jsonStr);
 
@@ -93,33 +94,35 @@ public class ConverterImpl implements Converter {
 
         long millisAfter = System.currentTimeMillis();
         timeUsed = millisAfter - millisBefore;
+
         isOperationSuccessful = true;
-        System.out.println("Time in milliseconds used: " + timeUsed);
+
         newFileName = "converted_" + oldFileName.split("\\.")[0] + ".yaml";
-        //        newFileSize = Files.size(Paths.get(filePath.getAbsolutePath())) / 1024;
 
     }
 
     @Override
-    public void write(String path) throws IOException {
-
-//        String workDir = Paths.get("").toAbsolutePath().toString();
+    public void write(Path path) throws IOException {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
         if (isOperationSuccessful) {
-            File file = new File(path + "\\converted\\" + newFileName);
-            file.getParentFile().mkdirs();
+            File folder = new File(path +
+                    File.separator + "convert");
+            if (!folder.exists()) {
+                folder.mkdir();
+            }
 
-            try (FileWriter saver = new FileWriter(file)) {
-                System.out.println("Saving converted file to : " + file);
+            try (FileWriter saver = new FileWriter(folder + File.separator + newFileName)) {
+                File destinationFile = new File(folder + File.separator + newFileName);
+                System.out.println("Saving converted file to : " + folder);
                 saver.write(result);
-                newFileSize = Files.size(Paths.get(file.getAbsolutePath()));
+                newFileSize = Files.size(destinationFile.toPath());
             }
         }
 
-        try (FileWriter saver = new FileWriter(path + "\\result.log", true)) {
+        try (FileWriter saver = new FileWriter(path + "\\log.txt", true)) {
             System.out.println("Saving results to : " + path);
             if (isOperationSuccessful) {
                 saver.write(dtf.format(now) + " -> " + "Converted " + oldFileName + " " + oldFileSize + " bytes to "
@@ -153,20 +156,4 @@ public class ConverterImpl implements Converter {
 
     }
 
-    public void viewContents(File path) throws IOException {
-
-        File[] listFiles = path.listFiles();
-        assert listFiles != null;
-        int counter = 1;
-        for (File f : listFiles) {
-            if (!f.isHidden()) {
-                if (!f.isDirectory()) {
-                    long size = Files.size(Paths.get(f.getAbsolutePath()));
-                    System.out.println(counter + ") -> " + f.getName() + " " + size + " bytes");
-                    counter++;
-                }
-            }
-        }
-
-    }
 }
