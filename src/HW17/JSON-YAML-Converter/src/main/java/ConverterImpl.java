@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 
 public class ConverterImpl implements Converter {
@@ -144,7 +146,8 @@ public class ConverterImpl implements Converter {
 
     public boolean isValidYaml(String yamlStr) {
 
-
+        Yaml yaml = new Yaml();
+        yaml.load(yamlStr);
         return true;
 
 

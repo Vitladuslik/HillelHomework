@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Main {
 
     private static String workDir = Paths.get("").toAbsolutePath().toString();
-    private static String tempPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources";
+    private static String tempPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\converted\\";
     private static int choice;
 
     public static void main(String[] args) throws IOException {
