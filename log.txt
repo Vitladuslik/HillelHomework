@@ -1,11 +1,7 @@
-22/12/2022 22:18:26 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 61 milliseconds.
-22/12/2022 22:22:51 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 62 milliseconds.
-22/12/2022 22:23:54 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 59 milliseconds.
-22/12/2022 22:25:18 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 61 milliseconds.
-22/12/2022 22:31:57 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 63 milliseconds.
-22/12/2022 22:32:50 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 66 milliseconds.
-22/12/2022 22:33:39 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 63 milliseconds.
-22/12/2022 22:35:02 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 71 milliseconds.
-22/12/2022 22:36:54 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 61 milliseconds.
-22/12/2022 22:40:45 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 64 milliseconds.
-22/12/2022 22:43:31 -> Converted example.yaml 170 bytes to converted_example.json 0 bytes in 60 milliseconds.
+22/12/2022 22:51:04 -> operation was unsuccessful.
+22/12/2022 22:51:56 -> operation was unsuccessful.
+22/12/2022 23:00:47 -> operation was unsuccessful.
+22/12/2022 23:01:08 -> operation was unsuccessful.
+22/12/2022 23:01:12 -> operation was unsuccessful.
+22/12/2022 23:01:24 -> operation was unsuccessful.
+22/12/2022 23:02:04 -> Converted MOCK_DATA.json 127 bytes to converted_MOCK_DATA.yaml 124 bytes in 41 milliseconds.

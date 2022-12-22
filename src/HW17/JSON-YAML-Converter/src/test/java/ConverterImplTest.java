@@ -8,11 +8,11 @@ public class ConverterImplTest {
     @Test
     void isValidJson() {
 
-        String testJsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.json";
+        String testJsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\MOCK_DATA.json";
 
-        ConverterImpl testService = new ConverterImpl();
+        Converter testService = new ConverterImpl();
 
-        String testStr = ReadFromFile.readToString(testJsonPath);
+        String testStr = testService.readToString(testJsonPath);
 
         Assertions.assertTrue(testService.isValidJson(testStr));
 
@@ -21,7 +21,7 @@ public class ConverterImplTest {
     @Test
     void checkFormat() throws IOException {
 
-        String testYamlPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\converted\\converted_example.yaml";
+        String testYamlPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.yaml";
 
         String testJsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.json";
 

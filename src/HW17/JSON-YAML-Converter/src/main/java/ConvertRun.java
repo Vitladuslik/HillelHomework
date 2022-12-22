@@ -13,8 +13,7 @@ public class ConvertRun {
             path = Path.of(args[0]);
         }
 
-
-        ConverterImpl service = new ConverterImpl();
+        Converter service = new ConverterImpl();
 
         File startPath = new File(path.toUri());
 
@@ -26,7 +25,7 @@ public class ConvertRun {
         ArrayList<File> filesToConvert = new ArrayList<>();
 
         for (File f : allFiles) {
-            if (f.getName().toLowerCase().endsWith("yaml") || f.getName().toLowerCase().endsWith("yaml")) {
+            if (f.getName().toLowerCase().endsWith("yaml") || f.getName().toLowerCase().endsWith("json")) {
                 filesToConvert.add(f);
             }
         }
@@ -42,9 +41,6 @@ public class ConvertRun {
             }
         }
 
-
         service.write(path);
-
     }
-
 }

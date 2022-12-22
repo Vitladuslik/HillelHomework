@@ -8,11 +8,17 @@ public interface Converter {
 
     String checkFormat(String filePath) throws IOException;
 
+    boolean isValidYaml(String yamlStr);
+
+    boolean isValidJson(String jsonStr);
+
     void convertToJson(File yamlFile) throws IOException;
 
     void convertToYaml(File jsonFile) throws IOException;
 
     void write(Path path) throws IOException;
+
+     String readToString(String filePath);
 
 
 }

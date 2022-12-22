@@ -1,4 +1,3 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -8,22 +7,24 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Stream;
 
 
 public class ConverterImpl implements Converter {
 
-    String oldFileName;
+    private String oldFileName;
     private long oldFileSize;
-    String newFileName;
+    private String newFileName;
     private long newFileSize;
     boolean isOperationSuccessful = false;
-    String result;
-    long timeUsed;
+    private String result;
+    private long timeUsed;
 
     public void setOldFileName(String fileName) {
         this.oldFileName = fileName;
@@ -36,7 +37,7 @@ public class ConverterImpl implements Converter {
     @Override
     public String checkFormat(String filePath) throws IOException {
 
-        String testStr = ReadFromFile.readToString(filePath);
+        String testStr = readToString(filePath);
 
         if (isValidJson(testStr)) {
             System.out.println("JSON detected");
@@ -61,7 +62,7 @@ public class ConverterImpl implements Converter {
 
         long millisBefore = System.currentTimeMillis();
 
-        String yamlStr = ReadFromFile.readToString(yamlFile.getPath());
+        String yamlStr = readToString(yamlFile.getPath());
 
         ObjectMapper yamlReader = new ObjectMapper(new YAMLFactory());
         Object obj = yamlReader.readValue(yamlStr, Object.class);
@@ -86,7 +87,7 @@ public class ConverterImpl implements Converter {
         setOldFileName(jsonFile.getName());
         setOldFileSize(Files.size(Path.of(jsonFile.getPath())));
 
-        String jsonStr = ReadFromFile.readToString(jsonFile.getPath());
+        String jsonStr = readToString(jsonFile.getPath());
 
         JsonNode jsonNodeTree = new ObjectMapper().readTree(jsonStr);
 
@@ -115,11 +116,12 @@ public class ConverterImpl implements Converter {
             }
 
             try (FileWriter saver = new FileWriter(folder + File.separator + newFileName)) {
-                File destinationFile = new File(folder + File.separator + newFileName);
                 System.out.println("Saving converted file to : " + folder);
                 saver.write(result);
-                newFileSize = Files.size(destinationFile.toPath());
             }
+
+            File destinationFile = new File(folder + File.separator + newFileName);
+            newFileSize = Files.size(Paths.get(destinationFile.getAbsolutePath()));
         }
 
         try (FileWriter saver = new FileWriter(path + "\\log.txt", true)) {
@@ -137,6 +139,7 @@ public class ConverterImpl implements Converter {
 
     }
 
+    @Override
     public boolean isValidJson(String jsonStr) {
         try {
             final ObjectMapper mapper = new ObjectMapper();
@@ -147,13 +150,26 @@ public class ConverterImpl implements Converter {
         }
     }
 
+    @Override
     public boolean isValidYaml(String yamlStr) {
 
         Yaml yaml = new Yaml();
         yaml.load(yamlStr);
         return true;
 
+    }
 
+    @Override
+    public String readToString(String filePath) {
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentBuilder.append(s).append("\n"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return contentBuilder.toString();
     }
 
 }
