@@ -1,12 +1,25 @@
+import hillel.FileWriter;
+import hillel.impl.FileWriterImpl;
+import hillel.impl.ServiceImpl;
+import hillel.impl.ToJsonConverterImpl;
+import hillel.impl.ToYamlConverterImpl;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class ConvertRun {
+public class Run {
 
     public static void main(String[] args) throws IOException {
+
+        ServiceImpl service = new ServiceImpl();
+
+        ToJsonConverterImpl jsonConverter = new ToJsonConverterImpl();
+        ToYamlConverterImpl yamlConverter = new ToYamlConverterImpl();
+
+        FileWriter saver = new FileWriterImpl();
 
         Path path = Path.of(System.getProperty("user.dir"));
 
@@ -14,7 +27,6 @@ public class ConvertRun {
             path = Path.of(args[0]);
         }
 
-        Converter service = new ConverterImpl();
 
         File startPath = new File(path.toUri());
 
@@ -31,23 +43,23 @@ public class ConvertRun {
             }
         }
 
-        if(filesToConvert.size() == 0) {
+        if (filesToConvert.size() == 0) {
             System.out.println("No files to convert!");
-            service.write(Paths.get("").toAbsolutePath(), null);
+            saver.write(Paths.get("").toAbsolutePath(), null, service);
             System.exit(0);
         }
-        
+
         for (File file : filesToConvert) {
 
             switch (service.checkFormat(file.getPath())) {
                 case "JSON" -> {
-                    service.convertToYaml(file);
-                    service.write(path, service.getResult());
+                    yamlConverter.convertToYaml(file, service);
+                    saver.write(path, service.getResult(), service);
                 }
 
                 case "YAML" -> {
-                    service.convertToJson(file);
-                    service.write(path, service.getResult());
+                    jsonConverter.convertToJson(file, service);
+                    saver.write(path, service.getResult(), service);
                 }
             }
         }

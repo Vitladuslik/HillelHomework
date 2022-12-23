@@ -67,7 +67,7 @@
     </dependencies>
 
     <build>
-        <finalName>JSON-YAML-Converter</finalName>
+        <finalName>JSON-YAML-hillel.Service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -97,7 +97,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                ConvertRun
+                                Run
                             </mainClass>
                         </manifest>
                     </archive>

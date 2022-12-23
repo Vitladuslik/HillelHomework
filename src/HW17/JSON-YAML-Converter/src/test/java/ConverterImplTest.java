@@ -1,7 +1,8 @@
+import hillel.Service;
+import hillel.impl.ServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 
 public class ConverterImplTest {
 
@@ -10,7 +11,7 @@ public class ConverterImplTest {
 
         String testJsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\MOCK_DATA.json";
 
-        Converter testService = new ConverterImpl();
+        Service testService = new ServiceImpl();
 
         String testStr = testService.readToString(testJsonPath);
 
@@ -19,13 +20,13 @@ public class ConverterImplTest {
     }
 
     @Test
-    void checkFormat() throws IOException {
+    void checkFormat() {
 
-        String testYamlPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.yaml";
+        String testYamlPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-hillel.Converter\\src\\main\\resources\\example.yaml";
 
-        String testJsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-Converter\\src\\main\\resources\\example.json";
+        String testJsonPath = "C:\\Users\\Vitladuslik\\IdeaProjects\\HillelHomework\\src\\HW17\\JSON-YAML-hillel.Converter\\src\\main\\resources\\example.json";
 
-        ConverterImpl testService = new ConverterImpl();
+        ServiceImpl testService = new ServiceImpl();
 
         Assertions.assertEquals("JSON", testService.checkFormat(testJsonPath));
         Assertions.assertEquals("YAML", testService.checkFormat(testYamlPath));
