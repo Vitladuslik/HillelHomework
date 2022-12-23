@@ -39,7 +39,7 @@ public class ConverterImpl implements Converter {
     }
 
     @Override
-    public String checkFormat(String filePath) throws IOException {
+    public String checkFormat(String filePath) {
 
         String testStr = readToString(filePath);
 
@@ -50,9 +50,6 @@ public class ConverterImpl implements Converter {
             System.out.println("YAML detected");
             return "YAML";
         } else {
-            System.out.println("No files to convert!");
-            write(Paths.get("").toAbsolutePath(), null);
-            System.exit(0);
             return null;
         }
 
