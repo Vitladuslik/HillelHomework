@@ -23,11 +23,24 @@ public class DatabaseHandlerImpl implements DatabaseHandler {
             initDatasource(dataSource);
             Connection connection = dataSource.getConnection();
 
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into  students (name, applied) value  (?, ?)");
+            if (student.getId() != 0) {
+                PreparedStatement ps = connection.prepareStatement("insert into  students (id, name, applied) value  (?, ?, ?)");
 
-            preparedStatement.setString(1, student.getName());
-            preparedStatement.setInt(2, student.getApplied());
-            preparedStatement.executeUpdate();
+                ps.setInt(1, student.getId());
+                ps.setString(2, student.getName());
+                ps.setInt(3, student.getApplied());
+                ps.executeUpdate();
+            }
+
+            else if (student.getId() == 0) {
+                PreparedStatement ps = connection.prepareStatement("insert into  students (name, applied) value  (?, ?)");
+
+                ps.setString(1, student.getName());
+                ps.setInt(2, student.getApplied());
+                ps.executeUpdate();
+            }
+
+
 
             connection.close();
 
