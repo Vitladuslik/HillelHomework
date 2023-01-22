@@ -1,4 +1,3 @@
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
@@ -19,6 +18,7 @@ public class DatabaseHandlerImplTest {
         Student testStudent = new Student();
         testStudent.setName("Test Testov");
         testStudent.setApplied(1990);
+        testStudent.setId(1112);
 
         assertTrue(service.addStudent(testStudent));
 

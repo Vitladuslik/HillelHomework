@@ -30,17 +30,13 @@ public class DatabaseHandlerImpl implements DatabaseHandler {
                 ps.setString(2, student.getName());
                 ps.setInt(3, student.getApplied());
                 ps.executeUpdate();
-            }
-
-            else if (student.getId() == 0) {
+            } else if (student.getId() == 0) {
                 PreparedStatement ps = connection.prepareStatement("insert into  students (name, applied) value  (?, ?)");
 
                 ps.setString(1, student.getName());
                 ps.setInt(2, student.getApplied());
                 ps.executeUpdate();
             }
-
-
 
             connection.close();
 

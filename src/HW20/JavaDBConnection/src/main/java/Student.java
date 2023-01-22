@@ -3,13 +3,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-/**
- * @author Alex Stepurko
- * @version 0.0.2
- * <p>
- * DTO class for store information about student
- */
-
 @Setter
 @Getter
 @Accessors(chain = true)
