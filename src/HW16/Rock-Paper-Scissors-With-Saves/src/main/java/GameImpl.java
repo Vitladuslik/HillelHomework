@@ -1,3 +1,5 @@
+import lombok.NoArgsConstructor;
+
 import java.io.*;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -6,6 +8,7 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+@NoArgsConstructor
 public class GameImpl implements Game {
 
     private static final Scanner scan = new Scanner(System.in);
