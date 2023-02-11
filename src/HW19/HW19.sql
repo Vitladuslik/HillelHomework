@@ -47,11 +47,11 @@ CREATE TABLE `Departments` (
 	PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `Students` ADD CONSTRAINT `Students_fk0` FOREIGN KEY (`group`) REFERENCES `Groups`(`id`);
+ALTER TABLE `Students` ADD CONSTRAINT `Students_fk0` FOREIGN KEY (groupId) REFERENCES `Groups`(`id`);
 
 ALTER TABLE `Grades` ADD CONSTRAINT `Grades_fk0` FOREIGN KEY (`class`) REFERENCES `Classes`(`code`);
 
-ALTER TABLE `Grades` ADD CONSTRAINT `Grades_fk1` FOREIGN KEY (`sudent`) REFERENCES `Students`(`id`);
+ALTER TABLE `Grades` ADD CONSTRAINT `Grades_fk1` FOREIGN KEY (student) REFERENCES `Students`(`id`);
 
 ALTER TABLE `Classes` ADD CONSTRAINT `Classes_fk0` FOREIGN KEY (`menthor`) REFERENCES `Menthors`(`code`);
 
