@@ -56,30 +56,4 @@ public class DatabaseHandlerImplTest {
 
     }
 
-    @BeforeEach
-    public void addTestStudent() {
-
-        DatabaseHandlerImpl service = new DatabaseHandlerImpl();
-        Student testStudent = new Student();
-        testStudent.setName("Test Testov");
-        testStudent.setApplied(1990);
-        testStudent.setGroupId(22);
-        service.addStudent(testStudent);
-
-    }
-
-    @AfterEach
-    public void deleteTestStudents() {
-
-        DatabaseHandlerImpl service = new DatabaseHandlerImpl();
-        while (service.getByName("Test Testov").size() > 0) {
-            Session session = HibernateService.getSessionFactory().openSession();
-            session.beginTransaction();
-
-            Student s = session.get(Student.class, "Test Testov");
-            session.delete(s);
-            session.getTransaction().commit();
-        }
-    }
-
 }

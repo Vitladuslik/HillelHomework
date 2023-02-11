@@ -19,7 +19,7 @@ public class DatabaseHandlerImpl implements DatabaseHandler {
             session.beginTransaction();
             session.save(student);
             session.getTransaction().commit();
-            HibernateService.shutdown();
+//            HibernateService.shutdown();
 
             return true;
 
@@ -34,7 +34,7 @@ public class DatabaseHandlerImpl implements DatabaseHandler {
 
         List<Student> result;
 
-        try {
+//        try {
 
             Session session = HibernateService.getSessionFactory().openSession();
 
@@ -47,17 +47,15 @@ public class DatabaseHandlerImpl implements DatabaseHandler {
 
             result = allQuery.getResultList();
 
-            HibernateService.shutdown();
+//            HibernateService.shutdown();
 
             return result;
 
-        } catch (Exception e) {
-            System.err.println("Error!");
-            HibernateService.shutdown();
-            return null;
-        }
-
-
+//        } catch (Exception e) {
+//            System.err.println("Error!");
+//            HibernateService.shutdown();
+//            return null;
+//        }
     }
 
     @Override
@@ -74,7 +72,7 @@ public class DatabaseHandlerImpl implements DatabaseHandler {
             result = (List<Student>) criteria.list();
 
 
-            HibernateService.shutdown();
+//            HibernateService.shutdown();
 
             return result;
         } catch (Exception e) {
@@ -103,7 +101,7 @@ public class DatabaseHandlerImpl implements DatabaseHandler {
                 }
             }
 
-            HibernateService.shutdown();
+//            HibernateService.shutdown();
 
             return result;
 
