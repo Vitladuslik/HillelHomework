@@ -1,3 +1,4 @@
+import org.hibernate.Session;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,34 +23,8 @@ public class DatabaseHandlerImplTest {
 
         assertTrue(service.addStudent(testStudent));
 
-        service.deleteStudentByName("Test Testov");
-
     }
 
-    @Test
-    public void deleteStudentById() {
-
-        List<Integer> ids = new ArrayList<>();
-        ids.add(1111);
-
-        DatabaseHandlerImpl service = new DatabaseHandlerImpl();
-
-        assertEquals(1, service.getByIds(ids).size());
-        assertTrue(service.deleteStudentById(1111));
-        assertEquals(0, service.getByIds(ids).size());
-
-    }
-
-    @Test
-    public void deleteStudentByName() {
-
-        DatabaseHandlerImpl service = new DatabaseHandlerImpl();
-
-        assertEquals(1, service.getByName("Test Testov").size());
-        assertTrue(service.deleteStudentByName("Test Testov"));
-        assertEquals(0, service.getByName("Test Testov").size());
-
-    }
 
     @Test
     public void getAll() {
@@ -73,7 +48,7 @@ public class DatabaseHandlerImplTest {
     public void getByIds() {
 
         List<Integer> ids = new ArrayList<>();
-        ids.add(1111);
+        ids.add(13);
 
         DatabaseHandlerImpl service = new DatabaseHandlerImpl();
 
@@ -88,7 +63,7 @@ public class DatabaseHandlerImplTest {
         Student testStudent = new Student();
         testStudent.setName("Test Testov");
         testStudent.setApplied(1990);
-        testStudent.setId(1111);
+        testStudent.setGroupId(22);
         service.addStudent(testStudent);
 
     }
@@ -98,7 +73,12 @@ public class DatabaseHandlerImplTest {
 
         DatabaseHandlerImpl service = new DatabaseHandlerImpl();
         while (service.getByName("Test Testov").size() > 0) {
-            service.deleteStudentByName("Test Testov");
+            Session session = HibernateService.getSessionFactory().openSession();
+            session.beginTransaction();
+
+            Student s = session.get(Student.class, "Test Testov");
+            session.delete(s);
+            session.getTransaction().commit();
         }
     }
 

@@ -95,9 +95,12 @@ public class DatabaseHandlerImpl implements DatabaseHandler {
 
             Session session = HibernateService.getSessionFactory().openSession();
 
+            for (long i : ids) {
 
-            for (Integer i : ids) {
-
+                Student s = session.get(Student.class, i);
+                if (s != null) {
+                    result.add(s);
+                }
             }
 
             HibernateService.shutdown();
