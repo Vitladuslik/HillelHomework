@@ -26,7 +26,7 @@ public class DatabaseHandlerImplTest {
 
 
         session.beginTransaction();
-        session.delete( testStudent );
+        session.delete(testStudent);
         session.getTransaction().commit();
         session.close();
 
@@ -43,7 +43,7 @@ public class DatabaseHandlerImplTest {
         assertNotEquals(0, service.getAll().size());
 
         session.beginTransaction();
-        session.delete( testStudent );
+        session.delete(testStudent);
         session.getTransaction().commit();
         session.close();
 
@@ -59,7 +59,7 @@ public class DatabaseHandlerImplTest {
         assertEquals(1, service.getByName("Test Testov").size());
 
         session.beginTransaction();
-        session.delete( testStudent );
+        session.delete(testStudent);
         session.getTransaction().commit();
         session.close();
 
@@ -76,6 +76,7 @@ public class DatabaseHandlerImplTest {
         assertEquals(1, service.getByIds(ids).size());
 
     }
+
     @BeforeEach
     public void setUp() {
         sessionFactory = new Configuration().configure().buildSessionFactory();
