@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_FOLDER" value="logs"/>
+
+    <appender name="INFO_WRITER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FOLDER}/Logs.log</file>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FOLDER}/archive/result-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 10MB -->
+                <maxFileSize>1MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 1 days' worth of history -->
+            <maxHistory>1</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="INFORMER" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR_WRITER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FOLDER}/Errors.log</file>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FOLDER}/error/archive/errors-%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>1MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 1 days' worth of history -->
+            <maxHistory>1</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d [%-5level] [%-14.14thread] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="infoWriter" level="INFO">
+        <appender-ref ref="INFO_WRITER"/>
+    </logger>
+
+    <logger name="informer" level="INFO">
+        <appender-ref ref="INFORMER" />
+    </logger>
+
+    <logger name="errorWriter" level="ERROR">
+        <appender-ref ref="ERROR_WRITER"/>
+    </logger>
+
+</configuration>

@@ -1,3 +1,5 @@
+package com.cache.logic;
+
 public interface Cache {
 
     void createCache ();
@@ -6,9 +8,9 @@ public interface Cache {
 
     Object get (String cache, String key);
 
-    void clear();
+    boolean clear();
 
-    void clear(String cache);
+    boolean clear(String cache);
 
     boolean isCacheExist(String cache);
 
