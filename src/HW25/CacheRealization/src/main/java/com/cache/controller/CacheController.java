@@ -1,7 +1,7 @@
 package com.cache.controller;
 
 import com.cache.config.SpringConfig;
-import com.cache.logic.impl.CacheImpl;
+import com.cache.service.impl.CacheImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Slf4j
-public class TestController {
+public class CacheController {
 
     ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     CacheImpl cacheImpl = context.getBean("CacheImpl", CacheImpl.class);

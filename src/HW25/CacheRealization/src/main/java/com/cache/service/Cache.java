@@ -1,4 +1,4 @@
-package com.cache.logic;
+package com.cache.service;
 
 public interface Cache {
 

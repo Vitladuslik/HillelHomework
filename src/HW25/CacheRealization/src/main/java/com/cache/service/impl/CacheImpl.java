@@ -1,6 +1,6 @@
-package com.cache.logic.impl;
+package com.cache.service.impl;
 
-import com.cache.logic.Cache;
+import com.cache.service.Cache;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

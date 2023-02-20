@@ -1,5 +1,5 @@
 import com.cache.config.SpringConfig;
-import com.cache.logic.impl.CacheImpl;
+import com.cache.service.impl.CacheImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
