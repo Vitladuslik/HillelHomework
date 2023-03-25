@@ -26,8 +26,8 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Template API")
-                .description("\"Template API\"").version("0.0.1").build();
+        return new ApiInfoBuilder().title("Vitladuslik Homework test API")
+                .description("\"Test API\"").version("0.0.1").build();
     }
 
 }
