@@ -1,6 +1,7 @@
-package com.cache.config;
+package com.template.config;
 
-import com.cache.service.impl.CacheImpl;
+
+import com.template.service.impl.CacheImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

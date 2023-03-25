@@ -1,14 +1,16 @@
-package com.cache.controller;
+package com.template.controller;
 
-import com.cache.config.SpringConfig;
-import com.cache.service.impl.CacheImpl;
+import com.template.config.SpringConfig;
+import com.template.service.impl.CacheImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @version 0.0.1
@@ -17,11 +19,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Slf4j
-public class CacheController {
+public class TestController {
 
     ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
     CacheImpl cacheImpl = context.getBean("CacheImpl", CacheImpl.class);
 
+    private static final String CALL_ENDPOINT = "call endpoint : %s ";
+
+    @GetMapping("/ping")
+    public String ping() {
+        log.info(String.format(CALL_ENDPOINT, "ping"));
+        return "work - OK";
+    }
     private static final Logger informer = LoggerFactory.getLogger("informer");
 
     @GetMapping("/put")

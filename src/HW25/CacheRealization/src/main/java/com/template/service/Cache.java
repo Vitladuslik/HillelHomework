@@ -1,4 +1,4 @@
-package com.cache.service;
+package com.template.service;
 
 public interface Cache {
 

@@ -1,4 +1,4 @@
-package com.cache.config;
+package com.template.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +26,8 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Vitladuslik HW 25 Rest API Test")
-                .description("Vitladuslik - \"REST API\"").version("31.5.21").build();
+        return new ApiInfoBuilder().title("Template API")
+                .description("\"Template API\"").version("0.0.1").build();
     }
 
 }
