@@ -4,9 +4,10 @@ import com.sort.entity.Employee;
 import com.sort.service.EmployeeService;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class EmployeeServiceImpl implements EmployeeService {
@@ -31,13 +32,24 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> sort(List<Employee> list, Integer experience) {
-            List<Employee> result = new ArrayList<>();
-            for (Employee e : list) {
-                if (e.getExperience() >= experience){
-                    result.add(e);
-                }
+    public String sort(List<Employee> list, Integer experience) {
+        List<Employee> temp = new ArrayList<>();
+        for (Employee e : list) {
+            if (e.getExperience() >= experience) {
+                temp.add(e);
             }
-        return result;
+        }
+
+        Comparator<Employee> byNumParam = Comparator.comparingInt(Employee::getExperience);
+        Comparator<Employee> byStringParam = Comparator.comparing(Employee::getLast_name);
+
+        temp.sort(byNumParam.thenComparing(byStringParam));
+
+        List<String> names = new ArrayList<>();
+        for (Employee e : temp) {
+            names.add(e.getFirst_name() + " " + e.getLast_name());
+        }
+
+        return String.join(", ", names) + ";";
     }
 }

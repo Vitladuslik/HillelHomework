@@ -15,9 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -29,9 +28,37 @@ import java.util.List;
 @Slf4j
 public class TestController {
 
-    private static final String CALL_ENDPOINT = "call endpoint : %s ";
     private static final EmployeeServiceImpl service = new EmployeeServiceImpl();
 
+
+    @ApiOperation(value = "Convert string to file and download")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "File converted and downloaded successfully"),
+            @ApiResponse(code = 400, message = "Bad request"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
+    @GetMapping(value = "/download")
+    public ResponseEntity<byte[]> convertStringToFileAndDownload() {
+
+        byte[] data;
+        HttpHeaders headers = new HttpHeaders();
+
+        data = service.getSortedFile().getBytes(StandardCharsets.UTF_8);
+
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=result.txt");
+
+        return new ResponseEntity<>(data, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/sort")
+    public String sort(Integer experience) {
+//        informer.info("Running 'get(String cacheName, String key)' method");
+        List<Employee> employeeList = service.getEmployeeList(service.getRawFile());
+        String employeeListSorted = service.sort(employeeList, experience);
+        service.setSortedFile(String.valueOf(employeeListSorted));
+        return employeeListSorted;
+    }
 
     @ApiOperation(value = "Upload and convert text file to string")
     @ApiResponses(value = {
@@ -53,49 +80,6 @@ public class TestController {
         }
 
         return ResponseEntity.ok(content);
-    }
-
-    @GetMapping("/ping")
-    public String ping() {
-        log.info(String.format(CALL_ENDPOINT, "ping"));
-        return "work - OK";
-    }
-
-
-    @GetMapping("/sort")
-    public String sort(Integer experience) {
-//        informer.info("Running 'get(String cacheName, String key)' method");
-        List<Employee> employeeList = service.getEmployeeList(service.getRawFile());
-        List<Employee> employeeListSorted = service.sort( employeeList, experience);
-        service.setSortedFile(employeeListSorted.toString());
-        return employeeListSorted.toString();
-    }
-
-    @ApiOperation(value = "Convert string to file and download")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "File converted and downloaded successfully"),
-            @ApiResponse(code = 400, message = "Bad request"),
-            @ApiResponse(code = 500, message = "Internal server error")
-    })
-    @GetMapping(value = "/download")
-    public ResponseEntity<byte[]> convertStringToFileAndDownload(){
-
-        byte[] data = null;
-        HttpHeaders headers = new HttpHeaders();
-
-        try {
-            // Convert string to byte array
-            data = service.getSortedFile().getBytes("UTF-8");
-
-            // Set content type and attachment header
-            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=result.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<byte[]>(data, headers, HttpStatus.OK);
     }
 
 }

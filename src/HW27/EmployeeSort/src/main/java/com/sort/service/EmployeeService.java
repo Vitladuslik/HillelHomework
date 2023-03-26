@@ -8,6 +8,6 @@ public interface EmployeeService {
 
     List<Employee> getEmployeeList(String data);
 
-    List<Employee> sort(List<Employee> list, Integer experience);
+    String sort(List<Employee> list, Integer experience);
 
 }
