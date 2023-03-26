@@ -20,16 +20,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
- * @version 0.0.1
+ * @version 1.0.0
  */
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 @Slf4j
-public class TestController {
+public class EmployeeController {
 
     private static final EmployeeServiceImpl service = new EmployeeServiceImpl();
-
 
     @ApiOperation(value = "Convert string to file and download")
     @ApiResponses(value = {
@@ -66,8 +65,8 @@ public class TestController {
             @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Internal server error")
     })
-    @PostMapping(value = "/uploadAndConvert", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Object> uploadFileAndConvertToString(
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> upload(
             @ApiParam(value = "Text file to be uploaded and converted") @RequestParam("file") MultipartFile file) {
 
         String content = "";
