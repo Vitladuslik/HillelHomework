@@ -72,7 +72,7 @@ public class EmployeeController {
         String content = "";
 
         try {
-            content = new String(file.getBytes());
+            content = new String(file.getBytes(), StandardCharsets.UTF_8);
             service.setRawFile(content);
         } catch (IOException e) {
             e.printStackTrace();
