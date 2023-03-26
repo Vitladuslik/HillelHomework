@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    List<Employee> getEmployeeList();
+    List<Employee> getEmployeeList(String data);
 
-    void sort(List<Employee> list);
+    List<Employee> sort(List<Employee> list, Integer experience);
 
 }
