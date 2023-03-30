@@ -2,33 +2,33 @@ package HW4;
 
 public class Car {
 
-    private final double FUEL_TANK_CAPACITY;
+    private double fuelTankCapacity;
     private double fuelLeft;
-    private final double FUEL_CONSUMED_PER_HUNDRED;
+    private double fuelConsumedPerHour;
 
     public Car(double fuelTankVolume, double fuelLeft, double fuelConsumedPerHundred) {
-        this.FUEL_TANK_CAPACITY = fuelTankVolume;
+        this.fuelTankCapacity = fuelTankVolume;
         this.fuelLeft = fuelLeft;
-        this.FUEL_CONSUMED_PER_HUNDRED = fuelConsumedPerHundred;
+        this.fuelConsumedPerHour = fuelConsumedPerHundred;
     }
 
     public double fillTheTank(double fuelLeft, double fuelCost) {  // заповнює бак до повного і видає затрати на паливо
-        double fuelPoured = getFUEL_TANK_CAPACITY() - fuelLeft;
+        double fuelPoured = getFuelTankCapacity() - fuelLeft;
         double moneySpent = fuelCost * fuelPoured;
-        setFuelLeft(getFUEL_TANK_CAPACITY());
+        setFuelLeft(getFuelTankCapacity());
         return moneySpent;
     }
 
     public double calculateFuelLeftAfterTrip(double tripLength, double fuelLeft) {  //вираховує скільки палива
-        return fuelLeft - (tripLength/100 * getFUEL_CONSUMED_PER_HUNDRED());       // залишиться після поїздки
+        return fuelLeft - (tripLength/100 * getFuelConsumedPerHour());       // залишиться після поїздки
     }
 
     public double calculateNeededFuel(double tripLength) { //вираховує необхідну кількість палива
-        return (tripLength/100 * getFUEL_CONSUMED_PER_HUNDRED());
+        return (tripLength/100 * getFuelConsumedPerHour());
     }
 
-    public double getFUEL_TANK_CAPACITY() {
-        return FUEL_TANK_CAPACITY;
+    public double getFuelTankCapacity() {
+        return fuelTankCapacity;
     }
 
     public double getFuelLeft() {
@@ -39,7 +39,7 @@ public class Car {
         this.fuelLeft = fuelLeft;
     }
 
-    public double getFUEL_CONSUMED_PER_HUNDRED() {
-        return FUEL_CONSUMED_PER_HUNDRED;
+    public double getFuelConsumedPerHour() {
+        return fuelConsumedPerHour;
     }
 }
